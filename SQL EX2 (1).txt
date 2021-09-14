@@ -1,0 +1,83 @@
+create table time(time_key varchar(20) primary key, day varchar(20), day_of_the_week varchar(20), month varchar(20), quarter varchar(20), year varchar(20));
+
+create table item(item_key varchar(20) primary key, item_name varchar(20), brand varchar(45), type varchar(20), supplier_type varchar(20), supplier_key int);
+begin
+insert into item values ('01', 'LG TV', 'LG', 'TV', 'B2B', '01');
+insert into item values ('02', 'Whirlpool 240', 'Whirlpool', 'TV', 'B2B', '02');
+insert into item values ('03', 'Xiomi mi TV', 'mi', 'TV', 'B2B', '03');
+insert into item values ('04', 'Sony', 'Sony', 'washing machine', 'B2B', '04');
+insert into item values ('05', 'Samsung 253', 'Samsung', 'washing machine', 'B2C', '05');
+end;
+select * from item;
+
+create table location(location_key varchar(20) primary key, street varchar(45), city varchar(20), province_or_state varchar(20), country varchar(20), city_key int);
+begin
+insert into location values('01', 'east street', 'madurai', 'tamilnadu', 'india', '01');
+insert into location values('02', 'west street', 'coimbatore', 'tamilnadu', 'india', '02');
+insert into location values('03', 'north street', 'chennai', 'tamilnadu', 'india', '03');
+insert into location values('04', 'south street', 'kanyakumari', 'tamilnadu', 'india', '04');
+insert into location values('05', 'east street', 'thirunelveli', 'tamilnadu', 'india', '05');
+end;
+
+create table branch(branch_key varchar(20) primary key, branch_name varchar(45), branch_type varchar(20));
+begin
+insert into branch values('01', 'vasanth&co', 'Home appliances');
+insert into branch values('02', 'vivek&co', 'appliances');
+insert into branch values('03', 'PR&co', 'Electronics');
+insert into branch values('04', 'Mraman&co', 'Home appliances');
+insert into branch values('05', 'nataraj&co', 'appliances');
+end;
+
+create table salesfacttable(time_key varchar(20), item_key varchar(20), location_key varchar(20), branch_key varchar(20), dollars_sold varchar(20), units_sold varchar(20));
+
+create table supplier(supplier_key int primary key, supplier_type varchar(45));
+begin
+insert into supplier values('01', 'B2B');
+insert into supplier values('02', 'B2B');
+insert into supplier values('03', 'B2B');
+insert into supplier values('04', 'B2B');
+insert into supplier values('05', 'B2C');
+end;
+
+create table city(city_key int primary key, city varchar(20), province_or_state varchar(20), country varchar(20));
+begin
+insert into city values('01', 'madurai', 'tamilnadu', 'india');
+insert into city values('02', 'coimbatore', 'tamilnadu', 'india');
+insert into city values('03', 'chennai', 'tamilnadu', 'india');
+insert into city values('04', 'kanyakumari', 'tamilnadu', 'india');
+insert into city values('05', 'thirunelveli', 'tamilnadu', 'india');
+end;
+
+create table shippingfacttable(item_key int, time_key int, shipper_key int,from_location varchar(45), to_location varchar(45), dollar_cost varchar(45), units_shipped varchar(45));
+
+create table shipper(shipper_key int primary key, shipper_name varchar(45), location_key varchar(20), shipper_type varchar(20));
+begin
+insert into shipper values('01', 'adhi', '01', 'B2B');
+insert into shipper values('02', 'siva', '02', 'B2B');
+insert into shipper values('03', 'arun', '03', 'B2B');
+insert into shipper values('04', 'prakash', '04', 'B2B');
+insert into shipper values('05', 'ajay', '05', 'B2C');
+end;
+
+create table time(time_key varchar(20) primary key, day varchar(20), day_of_the_week varchar(20), month varchar(20), quarter varchar(20), year varchar(20));
+begin
+insert into time values('01', '11-06-1997', 'FRIDAY', 'JUNE', '2', '1997');
+insert into time values('02', '07-11-1999', 'SUNDAY', 'NOVEMBER', '4', '1999');
+insert into time values('03', '09-02-1997', 'WEDNESDAY', 'FEBRUARY', '1', '1997');
+insert into time values('04', '27-07-2012', 'FRIDAY', 'JULY', '3', '2012');
+insert into time values('05', '05-09-2012', 'SUNDAY', 'SEPTEMBER', '3', '2012');
+end;
+
+begin
+insert into salesfacttable values('01','01','01','01','700','7');
+insert into salesfacttable values('02','02','02','02','800','8');
+insert into salesfacttable values('03','03','03','03','900','9');
+insert into salesfacttable values('04','04','04','04','1000','10');
+insert into salesfacttable values('05','05','05','05','1100','11');
+end;
+select * from salesfacttable;
+
+Queries:
+select i.brand, l.country, i.type, s.units_sold, t.year from item i join location l on i.item_key = l.location_key join time t on i.item_key = t.time_key join salesfacttable s on s.branch_key = i.item_key where i.type = 'TV' and t.year = '1997';
+
+select t.month, t.year from time t;
