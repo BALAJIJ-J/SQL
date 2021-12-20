@@ -1,0 +1,125 @@
+create table employee(empname  varchar(50), street varchar(50),city varchar(30));
+insert into employee(empname, street,city) values( 'praveen','a street','madurai');
+insert into employee(empname, street,city) values( 'akash','b street','chennai');
+insert into employee(empname, street,city) values( 'kanna','f1 street','madurai');
+select * from employee;
+drop table employee;
+
+create table works(empname  varchar(50), compname varchar(50),salary int not null);
+insert into works(empname, compname,salary ) values( 'praveen','fbc',10000);
+insert into works(empname,compname,salary) values( 'akash','mnc',20000);
+insert into works(empname, compname,salary ) values( 'kanna','fbc',30000);
+select * from works;
+drop table works;
+
+create table company(compname  varchar(50), city varchar(30));
+insert into company(compname, city) values( 'fbc','madurai');
+insert into company(compname, city) values( 'mnc','chennai');
+insert into company(compname, city) values( 'zoho','madurai');
+select * from company;
+drop table company;
+
+create table manager(empname  varchar(50), managername varchar(50));
+insert into manager(empname, managername ) values( 'praveen','mr.raja');
+insert into manager(empname,managername) values( 'akash','mr.gupta');
+insert into manager(empname, managername) values( 'kanna','ms.dharsha');
+select * from manager;
+drop table manager;
+selcect * from employee where compname(select compname from company where compname ='fbc' );
+
+Select * from employee
+Where works.compname='fbc';
+
+SELECT e.empname, e.street, e.city
+FROM employee AS e, works AS w
+WHERE w.empname = e.empname AND compname = "FBC" AND salary >10000;
+
+
+
+
+
+create table facttable(empname  varchar(50),compname varchar(50));
+insert into facttable(empname,compname, ) values( 'praveen','fbc');
+insert into facttable(empname,compname,) values( 'akash','mnc');
+insert into facttable(empname,compname, ) values( 'kanna','fbc');
+select * from facttable;
+drop table facttable;
+
+
+ex==2
+
+create table time(time_key varchar(45) primary key, day varchar(45), day_of_the_week varchar(45),month varchar(45),quarter varchar(45),year varchar(45));
+insert into time(time_key, day, day_of_the_week,month,year) values ('t1','12', 'monday', 'may','1997');
+insert into time(time_key, day, day_of_the_week,month,year) values ('t2','11', 'sunday', 'june','1998');
+select * from time;
+
+create table branch_1(branch_key varchar(45) primary key, branch_name varchar(45), branch_type varchar(45));
+insert into  branch_1(branch_key, branch_name, branch_type) values ('b1','maduraieast', 'wholesale');
+insert into  branch_1(branch_key, branch_name, branch_type) values ('b2','maduraiwest', 'retail');
+select * from branch_1;
+drop table branch_1;
+
+create table item(item_key varchar(45) primary key, item_name varchar(45), brand varchar(45),type varchar(45),supplier_type varchar(45));
+insert into item(item_key, item_name, brand,type,supplier_type ) values ('i1','bottle', 'sony', 'plastic','factory');
+insert into item(item_key,item_name,brand,type,supplier_type ) values ('i2','tv', 'samsung', 'electronic','dealer');
+
+select * from time;
+
+create table location(location_key varchar(45) primary key, street varchar(45), city_key varchar(45),state varchar(45),country varchar(45));
+insert into location(location_key, street, city,state,country) values ('l1','a_street', 'madurai', 'tamilnadu','india');
+insert into location(location_key, street, city,state,country) values ('l2','b_street', 'guntur', 'andra','india');
+select * from location;
+
+select * from time;
+
+create table sales_fact(time_key varchar(45), branch_key varchar(45) , item_key varchar(45),location_key varchar(45));
+
+
+snowflake-----------------------------
+
+create table time(time_key varchar(45) primary key, day varchar(45), day_of_the_week varchar(45),month varchar(45),quarter varchar(45),year varchar(45));
+drop table time;
+create table supplier(supplier_key int primary key, supplier_type varchar(45));
+create table city(city_key int primary key, city varchar(45), province_or_state varchar(45),country varchar(45));
+create table shipping_fact(item_key int , time_key int, shipper_key int,from_location varchar(45),to_location varchar(45),dollers_cost varchar(45),units_shipped int);
+create table shipper(shipper_key int, shipper_name varchar(45), location_key int,shipper_type varchar(45));
+
+
+create table location1(location_key varchar(45) primary key, street varchar(45), city_key varchar(45));
+create table item_1(item_key varchar(45) primary key, item_name varchar(45), brand varchar(45),type varchar(45),supplier_key int);
+
+
+
+--------------------lab------------------------------------
+create table supplier(supplier_key varchar(45) primary key, supplier_type varchar(45));
+insert into supplier(supplier_key,supplier_type)values("s1","wholesale");
+insert into supplier(supplier_key,supplier_type)values("s2","retail");
+select * from supplier;
+drop table supplier;
+
+
+create table city(city_key varchar(45) primary key, city varchar(45), province_or_state varchar(45),country varchar(45));
+insert into city(city_key ,city,province_or_state,country)values("c1","madurai","tamilnadu","india");
+insert into city(city_key ,city,province_or_state,country)values("c2","washington","colombia","usa");
+
+create table shipping_fact(item_key varchar(45) , time_key varchar(45), shipper_key varchar(45),from_location varchar(45),to_location varchar(45),dollers_cost varchar(45),units_shipped varchar(45));
+
+create table shipper(shipper_key varchar(45), shipper_name varchar(45), location_key varchar(45),shipper_type varchar(45));
+insert into shipper(shipper_key,shipper_name,location_key,shipper_type)values("s1","sony","l1","wholesale");
+insert into shipper(shipper_key,shipper_name,location_key,shipper_type)values("s2","samsung","l2","retail");
+
+
+create table location1(location_key varchar(45) primary key, street varchar(45), city_key varchar(45));
+insert into location1(location_key,street,city_key)values("l1","a_street","madurai");
+insert into location1(location_key,street,city_key)values("l2","b_street","washington");
+
+
+
+create table sales_fact(time_key varchar(45), branch_key varchar(45) , item_key varchar(45),location_key varchar(45),doller_sold varchar(45),unit_sold varchar(45));
+insert into sales_fact(time_key,branch_key,item_key,location_key,doller_sold,unit_sold)values("t1","b1","i1","l1","120","7");
+insert into sales_fact(time_key,branch_key,item_key,location_key,doller_sold,unit_sold)values("t2","b2","i2","l2","240","9");
+
+
+create table item_1(item_key varchar(45) primary key, item_name varchar(45), brand varchar(45),type varchar(45),supplier_key varchar(45));
+insert into item_1(item_key ,item_name,brand,type,supplier_key)values("i1","tv","sony","led","s1");
+insert into item_1(item_key ,item_name,brand,type,supplier_key)values("i2","washingmachine","lg","wash+drying","s2");
