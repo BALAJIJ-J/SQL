@@ -1,0 +1,32 @@
+CREATE TABLE customers (customer_id number(10) NOT NULL, customer_name varchar(50) NOT NULL, price number(10) NOT NULL);  
+---------------------------------------------------------------------
+  insert into customers (customer_id,customer_name,price) values(1,'ram',10)
+  insert into customers (customer_id,customer_name,price) values(2,'sai',20)
+  insert into customers (customer_id,customer_name,price) values(3,'raju',20)
+  insert into customers (customer_id,customer_name,price) values(4,'raju',20)
+  insert into customers (customer_id,customer_name,price) values(5,'raju',10)
+  insert into customers (customer_id,customer_name,price) values(6,'kavi',20)
+
+
+Roll up
+SELECT customer_name ,sum(price) AS Profit FROM customers  GROUP BY ROLLUP(customer_name);
+--------------------------------------------------------------------------
+Drill down
+
+SELECT customer_name ,sum(price) AS Profit FROM customers GROUP BY (customer_name);
+
+----------------------------------------------------------------------
+slice
+Select customer_name ,sum(price) from customers where customer_name ='ram' GROUP  BY customer_name ;
+
+pivot
+SELECT * FROM(SELECT customer_name,price FROM customers)PIVOT(sum(price)FOR price IN (10, 20, 30))ORDER BY customer_name;
+
+SELECT * FROM(SELECT customer_name,price FROM customers)PIVOT(count(price)FOR price IN (10, 20, 30))ORDER BY customer_name;
+
+
+-------------------------------------------------------------------------
+dice 
+ Select customer_name ,sum(price) from customers where customer_name = 'raju' and price=10 group by customer_name ;
+
+--------------------------------------------------------------------------
